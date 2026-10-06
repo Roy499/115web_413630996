@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>關於我 | Roy的個人網站</title>
+
+  <!-- 網頁圖示（瀏覽器分頁上的小圖） -->
+  <link rel="icon" type="image/png" href="images/owop.png">
+
+  <!-- 連結外部 CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 切換顏色主題的程式 -->
+  <script src="theme.js"></script>
+
+  <!-- 背景上方隨機產生的星星 -->
+  <script src="stars.js"></script>
+
+  <!-- 頁尾上方的水彩風景：藍天、白雲、高山、草坡、泥土小路、小花叢 -->
+  <script src="scenery.js"></script>
+
+  <!-- 作品集的照片：在白色卡片上挖洞，露出背景當相框 -->
+  <script src="photo-frames.js"></script>
+
+  <!-- 點擊作品集的照片，跳出小窗放大檢視 -->
+  <script src="lightbox.js"></script>
+</head>
+
+<body>
+  <!-- 網頁頁首 -->
+  <header>
+    <!-- 右上角：切換顏色主題按鈕，左邊加一段提示和彎彎的箭頭指向按鈕 -->
+    <div class="theme-switch">
+      <span class="theme-hint">
+        換個配色看看
+        <svg class="theme-arrow" viewBox="0 0 44 26" aria-hidden="true">
+          <path d="M3 5 C 12 24, 28 24, 39 11" />
+          <path d="M32 9.5 L40 10 L37.5 17.5" />
+        </svg>
+      </span>
+
+      <button class="theme-btn" type="button" title="點一下切換網站的顏色風格">
+        <span class="theme-dot"></span>
+        <span class="theme-name">夢幻</span>
+      </button>
+    </div>
+
+    <h1>關於我</h1>
+
+    <!-- 網頁導覽列 -->
+    <nav>
+      <a href="index.html">回首頁</a>
+      <a href="about.html" class="active">關於我</a>
+      <a
+        href="https://maps.app.goo.gl/1JMjVRYTTvXNo24N9"
+        target="_blank"
+        rel="noreferrer"
+      >
+        淡江大學店
+      </a>
+    </nav>
+  </header>
+
+  <!-- 網頁主要內容：不同大小的卡片拼在一起 -->
+  <main>
+    <!-- 個人簡介卡片 -->
+    <section class="box profile span-6">
+      <!-- 圓形大頭貼，外圈是漸層 -->
+      <div class="avatar">
+        <img src="images/profile.jpg" alt="Roy的大頭貼">
+      </div>
+
+      <div>
+        <h2>我是 Roy</h2>
+        <p class="subtitle">淡江大學 資訊管理學系 大三</p>
+
+        <p>
+          大家好，我是淡江資管系大三的學生。
+          沒課的時候喜歡騎單車、運動、爬山。
+        </p>
+
+        <!-- 小標籤 -->
+        <div class="tags">
+          <span class="tag">🚲 單車</span>
+          <span class="tag">🏃 運動</span>
+          <span class="tag">⛰️ 爬山</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 興趣：漸層卡片 + 圓形泡泡 -->
+    <section class="box fill span-3">
+      <h2>我的興趣</h2>
+
+      <div class="bubbles">
+        <div class="bubble"><span>🚲</span>單車</div>
+        <div class="bubble"><span>🏃</span>運動</div>
+        <div class="bubble"><span>⛰️</span>爬山</div>
+      </div>
+    </section>
+
+    <!-- 這學期的課程 -->
+    <section class="box tape right span-3">
+      <h2>這學期在學的</h2>
+
+      <ul class="courses">
+        <li><span>🔐</span>資訊安全實務基礎</li>
+        <li><span>🌐</span>網路程式設計</li>
+        <li><span>📐</span>系統分析與設計</li>
+        <li><span>💻</span>進階程式設計</li>
+        <li><span>⛓️</span>Web3 的應用與實務</li>
+        <li><span>🎨</span>專業排版與設計</li>
+      </ul>
+    </section>
+
+    <!-- 小檔案（TODO：範例文字，之後換成自己的） -->
+    <section class="box outline span-2" data-sticker="⭐">
+      <h2>小檔案</h2>
+
+      <dl class="facts">
+        <dt>生日</dt>
+        <dd>3月18日(06)</dd>
+
+        <dt>星座</dt>
+        <dd>雙魚座</dd>
+
+        <dt>MBTI</dt>
+        <dd>INTP</dd>
+
+        <dt>喜歡的食物</dt>
+        <dd>義大利麵</dd>
+
+        <dt>個性</dt>
+        <dd>推崇理性，不喜歡情緒化</dd>
+      </dl>
+    </section>
+
+    <!-- 經歷時間軸（TODO：範例文字，之後換成自己的） -->
+    <section class="box tape span-4">
+      <h2>我的經歷</h2>
+
+      <ol class="timeline">
+        <li>
+          <span class="year">2024</span>
+          <strong>進入淡江大學資訊管理學系</strong>
+          <p>大學生活的開始。</p>
+        </li>
+
+        <li>
+          <span class="year">2025</span>
+          <strong>大二</strong>
+          <p>大學二年級。</p>
+        </li>
+
+        <li>
+          <span class="year">2026</span>
+          <strong>大三</strong>
+          <p>大學三年級。</p>
+        </li>
+
+        <li>
+          <span class="year">2027</span>
+          <strong>還沒到</strong>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 我的一週：每天最晚下課時間 -->
+    <section class="box tape span-4">
+      <h2>我的一週</h2>
+
+      <ul class="week">
+        <li><span>Mon</span> 18:00</li>
+        <li><span>Tue</span> 18:00</li>
+        <li><span>Wed</span> 18:00</li>
+        <li><span>Thu</span> 18:00</li>
+        <li><span>Fri</span> 18:00</li>
+      </ul>
+
+      <p class="note">
+        嗚嗚嗚每天都六點才下課<em>（雖然中間有空堂）</em>
+      </p>
+    </section>
+
+    <!-- 使用電腦的步驟：虛線卡片 -->
+    <section class="box outline span-2">
+      <h2>使用電腦的步驟</h2>
+
+      <ol class="steps">
+        <li>開機</li>
+        <li>使用</li>
+        <li>關機</li>
+      </ol>
+    </section>
+
+    <!-- 裝飾用分隔線 -->
+    <hr class="divider">
+
+    <!-- 會用的工具（TODO：範例文字，之後換成自己的） -->
+    <section class="box tape right span-2">
+      <h2>會用的工具/專長</h2>
+
+      <ul class="chips">
+        <li>GitHub</li>
+        <li>VS Code</li>
+        <li>拍風景拍動物</li>
+        <li>電腦硬體配置</li>
+        <li>重灌電腦</li>
+        <li>鍵盤硬體</li>
+      </ul>
+    </section>
+
+    <!-- 最近在…（TODO：範例文字，之後換成自己的） -->
+    <section class="box fill span-2">
+      <h2>最近在…</h2>
+
+      <ul class="now">
+        <li><span>🎧</span>聽：2011~2022間的華語歌</li>
+        <li><span>📺</span>看：想看絕命毒師</li>
+        <li><span>🎮</span>玩：CS2、LOL</li>
+        <li><span>📖</span>讀：練入膏肓</li>
+      </ul>
+    </section>
+
+    <!-- 目標清單（TODO：範例文字，之後換成自己的） -->
+    <section class="box span-2" data-sticker="🎯">
+      <h2>畢業前想完成</h2>
+
+      <ul class="checklist">
+        <li class="done">做出自己的個人網站</li>
+        <li>畢業門檻</li>
+        <li>畢業門檻</li>
+        <li>畢業門檻</li>
+      </ul>
+    </section>
+
+    <!-- 作品集 -->
+    <section class="box span-6 has-holes" data-sticker="🌸">
+      <!-- 卡片的白底單獨一層，photo-frames.js 會在這層挖出照片的洞 -->
+      <div class="box-bg" aria-hidden="true"></div>
+
+      <h2>作品集</h2>
+
+      <div class="projects">
+        <article class="project">
+          <div class="project-cover">
+            <img src="images/angry姚博-去背.png" alt="個人網站圖示">
+          </div>
+          <h3>個人網站</h3>
+          <p>網路程式設計的課堂作業，就是你現在看到的這個網站。</p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-cover">
+            <img src="images/owo.png" alt="企鵝">
+          </div>
+          <h3>企鵝</h3>
+          <p>企鵝</p>
+          <div class="tags">
+            <span class="tag">企鵝</span>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-cover">
+            <img src="images/owop.png" alt="企鵝">
+          </div>
+          <h3>企鵝!</h3>
+          <p>企鵝!</p>
+          <div class="tags">
+            <span class="tag">企鵝!</span>
+          </div>
+        </article>
+      </div>
+
+      <!-- 攝影作品：用手機拍的動物和風景，像七巧板一樣拼成一大塊
+           --r 是照片的寬高比（寬 ÷ 高），排版時用它分配寬度，同一排的照片高度剛好一樣，照片幾乎不會被裁切
+           photo-col：直的疊在一起；photo-row：橫的並排在一起
+           ┌步道┬貓咪┐┌──────┐┌坐著的貓┐
+           │    │    ││斜張橋│├────────┤
+           ├─小貓────┤│      ││林蔭道路│
+           width / height：照片原始尺寸；loading="lazy"：捲到附近才載入圖片 -->
+      <!-- 和上面的作品卡片隔開 -->
+      <hr class="divider photo-divider">
+
+      <h3 class="photo-title">
+        📷 攝影作品
+        <small>點擊照片可以放大檢視</small>
+      </h3>
+
+      <div class="photo-grid">
+        <!-- 左邊：步道和貓咪並排，下面接小貓 -->
+        <div class="photo-col" style="--r: 0.689">
+          <div class="photo-row" style="--r: 1.125">
+            <div class="photo-frame" style="--r: 0.562">
+              <figure class="project-photo">
+                <img src="images/photos/img_0918.jpg" alt="傍晚雲層下亮著路燈的河濱步道" width="675" height="1200" loading="lazy">
+              </figure>
+            </div>
+
+            <div class="photo-frame" style="--r: 0.562">
+              <figure class="project-photo">
+                <img src="images/photos/img_4747.jpg" alt="趴在木頭長椅上的虎斑白貓" width="675" height="1200" loading="lazy">
+              </figure>
+            </div>
+          </div>
+
+          <div class="photo-frame" style="--r: 1.778">
+            <figure class="project-photo">
+              <img src="images/photos/img_9973.jpg" alt="睜大眼睛看著鏡頭的小虎斑貓" width="1200" height="675" loading="lazy">
+            </figure>
+          </div>
+        </div>
+
+        <!-- 中間：斜張橋 -->
+        <div class="photo-frame" style="--r: 0.915">
+          <figure class="project-photo">
+            <img src="images/photos/img_8891.jpg" alt="藍天下橫跨河口的斜張橋" width="1098" height="1200" loading="lazy">
+          </figure>
+        </div>
+
+        <!-- 右邊：坐著的貓下面接林蔭道路 -->
+        <div class="photo-col side" style="--r: 0.427">
+          <div class="photo-frame tile-sit" style="--r: 1.77">
+            <figure class="project-photo">
+              <img src="images/photos/img_8608.jpg" alt="坐在地上舔毛到一半的虎斑白貓" width="1200" height="678" loading="lazy">
+            </figure>
+          </div>
+
+          <div class="photo-frame" style="--r: 0.562">
+            <figure class="project-photo">
+              <img src="images/photos/img_7570.jpg" alt="藍天下被綠樹包圍的彎曲道路" width="675" height="1200" loading="lazy">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 座右銘（TODO：範例文字，之後換成自己的） -->
+    <section class="box quote span-6">
+      <blockquote>
+        「情可動心，理不可失。」
+      </blockquote>
+      <p class="quote-by">— 佚名</p>
+    </section>
+
+    <!-- 裝飾用分隔線 -->
+    <hr class="divider">
+
+    <!-- 推薦觀看：做成影片縮圖的樣子 -->
+    <section class="box span-2">
+      <h2>推薦觀看</h2>
+
+      <a
+        class="video"
+        href="https://www.youtube.com/watch?v=Kw0YZ3c9xR0"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <div class="thumb"><span>▶</span></div>
+        <strong>培宇演講</strong>
+        <small>前往 YouTube →</small>
+      </a>
+    </section>
+
+    <!-- 聯絡資訊 -->
+    <section class="box span-4">
+      <h2>聯絡資訊</h2>
+
+      <div class="link-list stack">
+        <a href="https://github.com/Roy499" target="_blank" rel="noreferrer">
+          <span class="icon">💻</span>
+          GitHub
+        </a>
+
+        <a href="mailto:roy950318@gmail.com">
+          <span class="icon">✉️</span>
+          roy950318@gmail.com
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- 網頁頁尾 -->
+  <footer>
+    <p>© 2026 Roy的個人網站</p>
+  </footer>
+</body>
+
+</html>

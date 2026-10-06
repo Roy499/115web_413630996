@@ -1,0 +1,1722 @@
+/* =========================================
+   顏色主題（用 CSS 變數管理）
+   --c1 / --c2 / --c3：漸層的三個顏色
+   --accent：標題、強調色
+   --text：主要文字顏色
+   --soft：淡淡的底色
+   --top：網頁最上方的深色（往下漸層變淺）
+   ========================================= */
+
+/* 預設主題：夢幻（粉色 → 紫色 → 淺藍色） */
+:root {
+  --c1: #ffafcc;
+  --c2: #cdb4db;
+  --c3: #a2d2ff;
+  --accent: #b5179e;
+  --text: #3d2c4e;
+  --soft: #fdf4ff;
+  --top: #2e2463;
+}
+
+/* 海洋主題（藍色系） */
+[data-theme="ocean"] {
+  --c1: #a2d2ff;
+  --c2: #74c0fc;
+  --c3: #9b8cff;
+  --accent: #1c64c8;
+  --text: #1d2f4a;
+  --soft: #f0f7ff;
+  --top: #0f2a5c;
+}
+
+/* 清新主題（黃色 → 綠色 → 藍色） */
+[data-theme="fresh"] {
+  --c1: #fff1a8;
+  --c2: #b9f3c4;
+  --c3: #9ed8ff;
+  --accent: #1a8a8a;
+  --text: #1f3a40;
+  --soft: #f4fdf9;
+  --top: #0f4454;
+}
+
+/* =========================================
+   基本設定
+   ========================================= */
+
+/* 讓元素的寬度計算包含 padding 與 border */
+* {
+  box-sizing: border-box;
+}
+
+/* 草地最下方的綠色、天空的藍色（各混一點主題色） */
+:root {
+  --grass: color-mix(in srgb, #62b25a 88%, var(--c2));
+  --sky: color-mix(in srgb, #5fb4ec 80%, var(--c3));
+}
+
+/* 整個網頁：「上深下淺」的漸層底色 */
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text);
+  background:
+    linear-gradient(
+      180deg,
+      var(--top) 0%,
+      color-mix(in srgb, var(--top) 80%, var(--c3)) 25%,
+      color-mix(in srgb, var(--top) 50%, var(--c3)) 45%,
+      var(--c2) 65%,
+      color-mix(in srgb, var(--c1) 50%, var(--soft)) 85%,
+      var(--soft) 100%
+    );
+  font-family: Arial, "Microsoft JhengHei", sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+}
+
+p {
+  line-height: 1.8;
+}
+
+a {
+  color: var(--accent);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+li::marker {
+  color: var(--accent);
+}
+
+/* =========================================
+   頁首與頁尾
+   ========================================= */
+
+/* 頁首與頁尾：使用三色漸層 */
+header,
+footer {
+  position: relative;
+  padding: 32px 24px;
+  color: var(--text);
+  text-align: center;
+  background: linear-gradient(120deg, var(--c1), var(--c2), var(--c3));
+}
+
+/* 頁尾：上面接著草地的綠色，往下慢慢變成原本的彩色色塊 */
+footer {
+  isolation: isolate;
+  padding: 72px 24px 16px;
+  background: var(--grass);
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(120deg, var(--c1), var(--c2), var(--c3));
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0.85) 60%, black 75%);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0.85) 60%, black 75%);
+}
+
+/* 頁首：彩色漸層往下慢慢變透明，露出後面深色的底色，兩者自然接在一起 */
+header {
+  isolation: isolate;
+  /* 下方多留一段空間，讓漸層在導覽列下面才開始變化 */
+  padding-bottom: 120px;
+  background: none;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(120deg, var(--c1), var(--c2), var(--c3));
+  /* 標題和導覽列的範圍保持原色，下面再分好幾段慢慢淡出，過渡比較柔和 */
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    black 0%,
+    black 52%,
+    rgba(0, 0, 0, 0.9) 62%,
+    rgba(0, 0, 0, 0.7) 72%,
+    rgba(0, 0, 0, 0.45) 81%,
+    rgba(0, 0, 0, 0.22) 89%,
+    rgba(0, 0, 0, 0.07) 95%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    black 0%,
+    black 52%,
+    rgba(0, 0, 0, 0.9) 62%,
+    rgba(0, 0, 0, 0.7) 72%,
+    rgba(0, 0, 0, 0.45) 81%,
+    rgba(0, 0, 0, 0.22) 89%,
+    rgba(0, 0, 0, 0.07) 95%,
+    transparent 100%
+  );
+}
+
+h1 {
+  letter-spacing: 2px;
+}
+
+/* 設定導覽列 */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* 導覽列連結做成半透明膠囊按鈕 */
+nav a {
+  padding: 6px 16px;
+  color: var(--text);
+  font-weight: bold;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+/* 滑鼠移到連結上時稍微浮起 */
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+/* 目前所在頁面的連結 */
+nav a.active {
+  background-color: white;
+}
+
+/* 右上角切換主題按鈕 */
+/* 右上角：提示文字 + 箭頭 + 切換按鈕排成一排 */
+.theme-switch {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 提示文字：手寫感的小字，後面接一個彎彎的箭頭指向按鈕 */
+.theme-hint {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--text);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  transform: rotate(-4deg);
+}
+
+.theme-arrow {
+  width: 40px;
+  height: 24px;
+  overflow: visible;
+  /* 箭頭往按鈕的方向輕輕來回晃動 */
+  animation: theme-arrow-nudge 1.4s ease-in-out infinite;
+}
+
+.theme-arrow path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes theme-arrow-nudge {
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+/* 使用者設定「減少動態效果」時，箭頭不要晃 */
+@media (prefers-reduced-motion: reduce) {
+  .theme-arrow {
+    animation: none;
+  }
+}
+
+/* 手機畫面比較窄，提示文字和箭頭都縮小一點 */
+@media (max-width: 600px) {
+  .theme-hint {
+    font-size: 12px;
+  }
+
+  .theme-arrow {
+    width: 30px;
+    height: 18px;
+  }
+}
+
+.theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: bold;
+  font-family: inherit;
+  background-color: rgba(255, 255, 255, 0.75);
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.theme-btn:hover {
+  transform: scale(1.05);
+}
+
+/* 按鈕裡的小圓點，顯示目前主題的漸層 */
+.theme-dot {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+/* =========================================
+   主要內容：不同大小的卡片拼成格子（Bento 排版）
+   ========================================= */
+main {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 20px;
+  /* 1000px 內容 + 左右各 24px 內距，和上方導覽列對齊 */
+  max-width: 1048px;
+  margin: 0 auto;
+  padding: 32px 24px 8px;
+}
+
+/* 每張卡片佔幾欄 */
+.span-2 {
+  grid-column: span 2;
+}
+
+.span-3 {
+  grid-column: span 3;
+}
+
+.span-4 {
+  grid-column: span 4;
+}
+
+.span-6 {
+  grid-column: span 6;
+}
+
+/* 往下佔兩排 */
+.tall {
+  grid-row: span 2;
+}
+
+/* 卡片基本樣式：白色、大圓角 */
+.box {
+  position: relative;
+  padding: 24px;
+  background-color: white;
+  border-radius: 24px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.box h2 {
+  font-size: 20px;
+  color: var(--accent);
+}
+
+/* 卡片變化 1：整張填滿漸層 */
+.box.fill {
+  background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+}
+
+.box.fill h2 {
+  color: var(--text);
+}
+
+/* 卡片變化 2：透明底 + 虛線外框 */
+.box.outline {
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 2px dashed var(--c2);
+  box-shadow: none;
+}
+
+/* 貼紙風格：卡片上方貼一段紙膠帶 */
+.tape::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 28px;
+  width: 96px;
+  height: 26px;
+  background: repeating-linear-gradient(
+    45deg,
+    color-mix(in srgb, var(--c1) 85%, transparent) 0 8px,
+    color-mix(in srgb, white 70%, transparent) 8px 16px
+  );
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transform: rotate(-4deg);
+}
+
+/* 另一款膠帶：貼在右邊、換顏色 */
+.tape.right::before {
+  right: 28px;
+  left: auto;
+  background: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--c3) 85%, transparent) 0 8px,
+    color-mix(in srgb, white 70%, transparent) 8px 16px
+  );
+  transform: rotate(5deg);
+}
+
+/* 分隔線花邊：兩側漸層細線，中間三顆星星 */
+.divider {
+  position: relative;
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 24px;
+  margin: 8px 0;
+  border: none;
+  background: linear-gradient(90deg, transparent, var(--c2) 20%, var(--c2) 40%, transparent 40%, transparent 60%, var(--c2) 60%, var(--c2) 80%, transparent) center / 100% 2px no-repeat;
+}
+
+.divider::after {
+  content: "✦ ✧ ✦";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--accent);
+  font-size: 16px;
+  letter-spacing: 6px;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+/* =========================================
+   首頁
+   ========================================= */
+
+/* 照片牆 */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* 每張照片微微歪一點，像拍立得 */
+.gallery img:nth-child(odd) {
+  transform: rotate(-2deg);
+}
+
+.gallery img:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+/* 膠囊樣式的清單 */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.pills li {
+  margin: 0;
+  padding: 6px 16px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+}
+
+/* 表格 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+caption {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+/* 漸層加在整列上，才不會每一格各自重新漸層 */
+thead tr {
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--soft);
+}
+
+/* =========================================
+   About 頁面
+   ========================================= */
+
+/* 個人簡介卡片 */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+  padding: 5px;
+  background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+  border-radius: 50%;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 貓臉在原圖偏左，裁切時往左取景，讓臉在圓框中置中 */
+  object-position: 25% center;
+  border: 4px solid white;
+  border-radius: 50%;
+}
+
+.profile h2 {
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  margin: 0 0 12px;
+  opacity: 0.75;
+}
+
+/* 個人簡介卡片右上角的圓形「Hi!」貼紙 */
+.profile::after {
+  content: "Hi!";
+  position: absolute;
+  top: -18px;
+  right: 24px;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: bold;
+  background-color: white;
+  border: 2px dashed var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transform: rotate(12deg);
+}
+
+/* 標籤 */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 4px 12px;
+  font-size: 14px;
+  background: linear-gradient(120deg, var(--c1), var(--c2), var(--c3));
+  border-radius: 999px;
+}
+
+/* 興趣：圓形泡泡 */
+.bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 16px;
+}
+
+.bubble {
+  text-align: center;
+  font-weight: bold;
+}
+
+.bubble span {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  margin-bottom: 8px;
+  font-size: 38px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 我的一週：每天一個小格子 */
+.week {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.week li {
+  margin: 0;
+  padding: 10px 4px;
+  font-size: 14px;
+  text-align: center;
+  background-color: var(--soft);
+  border-radius: 14px;
+}
+
+.week span {
+  display: block;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.note {
+  margin-bottom: 0;
+}
+
+/* 使用電腦的步驟：圓形數字往下排 */
+.steps {
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: bold;
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+  border-radius: 50%;
+}
+
+/* 這學期的課程：兩欄小方塊 */
+.courses {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.courses li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: var(--soft);
+  border-radius: 14px;
+}
+
+/* 課程前面的圓形圖示 */
+.courses span {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  font-size: 16px;
+  background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+  border-radius: 50%;
+}
+
+/* 推薦觀看：做成影片縮圖的樣子 */
+.video {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.thumb {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 8;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+  border-radius: 16px;
+}
+
+/* 縮圖中間的白色播放鍵 */
+.thumb span {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding-left: 4px;
+  color: var(--accent);
+  font-size: 22px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.video strong {
+  display: block;
+}
+
+.video small {
+  color: var(--accent);
+}
+
+.video:hover .thumb span {
+  transform: scale(1.1);
+}
+
+/* 連結清單：每個連結是一列，左邊圓形圖示、右邊箭頭 */
+.link-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.link-list a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-weight: bold;
+  text-decoration: none;
+  background-color: var(--soft);
+  border-radius: 16px;
+}
+
+.link-list a:hover {
+  background-color: color-mix(in srgb, var(--c2) 30%, white);
+}
+
+/* 一個連結一列，不分欄 */
+.link-list.stack {
+  grid-template-columns: 1fr;
+}
+
+/* 左邊的圓形圖示 */
+.link-list .icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+  border-radius: 50%;
+}
+
+/* 右邊的箭頭，推到最右側 */
+.link-list a::after {
+  content: "→";
+  margin-left: auto;
+  color: var(--accent);
+}
+
+/* =========================================
+   平板：卡片改成兩欄
+   ========================================= */
+@media (max-width: 800px) {
+  main > .span-2,
+  main > .span-3,
+  main > .span-4 {
+    grid-column: span 3;
+  }
+
+  .tall {
+    grid-row: auto;
+  }
+}
+
+/* =========================================
+   手機：全部改成一欄
+   ========================================= */
+@media (max-width: 600px) {
+  header {
+    padding: 64px 16px 100px;
+  }
+
+  footer {
+    padding: 56px 16px 16px;
+  }
+
+  .profile {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .tags {
+    justify-content: center;
+  }
+
+  main {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 24px 16px 8px;
+  }
+
+  main > * {
+    grid-column: 1 / -1 !important;
+  }
+
+  .box {
+    padding: 20px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .courses {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .week {
+    gap: 4px;
+  }
+
+  .week li {
+    font-size: 12px;
+  }
+}
+
+/* =========================================
+   新增欄位
+   ========================================= */
+
+/* 小檔案：左邊項目、右邊內容 */
+.facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 12px;
+  margin: 0;
+}
+
+.facts dt {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.facts dd {
+  margin: 0;
+}
+
+/* 經歷時間軸：左邊一條線，每個項目一顆圓點 */
+.timeline {
+  margin: 0;
+  padding: 0 0 0 24px;
+  list-style: none;
+  border-left: 3px solid var(--c2);
+}
+
+.timeline li {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.timeline li:last-child {
+  margin-bottom: 0;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: -34px;
+  width: 15px;
+  height: 15px;
+  background: linear-gradient(135deg, var(--c1), var(--c3));
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--c2);
+}
+
+.timeline .year {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 0 10px;
+  font-size: 13px;
+  font-weight: bold;
+  background-color: var(--soft);
+  border-radius: 999px;
+}
+
+.timeline p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* 作品集：三張小卡 */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.project {
+  padding: 12px;
+  background-color: var(--soft);
+  border-radius: 18px;
+}
+
+.project-cover {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 12px;
+  font-size: 40px;
+  background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+  border-radius: 12px;
+}
+
+/* 封面放圖片時，完整顯示整張圖，不裁切；
+   用絕對定位讓圖片不會把 16:9 的封面撐高 */
+.project-cover {
+  position: relative;
+}
+
+.project-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* 作品圖片：正方形、圓角，滑過時微微放大 */
+.project-photo {
+  position: relative;
+  margin: 0 0 12px;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 12px;
+}
+
+.project-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project:hover .project-photo img {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+/* 攝影作品：像七巧板一樣，大小不同的照片拼成一整塊，照片幾乎不裁切
+   每個區塊都有 --r（寬 ÷ 高），在橫排裡用 flex-grow: var(--r) 分配寬度：
+   寬度跟寬高比成正比 → 同一排每張照片算出來的高度剛好一樣
+   photo-row：裡面的東西橫著排；photo-col：裡面的東西直著疊 */
+/* 卡片裡的分隔線：上下多留一點空間，和上面的作品卡片隔開 */
+.photo-divider {
+  margin: 24px 0 8px;
+}
+
+.photo-title {
+  margin: 0 0 12px;
+  font-size: 17px;
+}
+
+/* 標題後面的小字說明 */
+.photo-title small {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: normal;
+  opacity: 0.7;
+}
+
+.photo-grid,
+.photo-row {
+  display: flex;
+  gap: 14px;
+}
+
+.photo-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 橫排裡的每一塊：依寬高比分配寬度 */
+.photo-grid > *,
+.photo-row > * {
+  flex: var(--r) 1 0;
+  min-width: 0;
+}
+
+/* 直疊裡的每一塊：間距讓整疊比旁邊稍微矮一點，多出來的高度平均分給每一塊，底部才會對齊 */
+.photo-col > * {
+  flex-grow: 1;
+}
+
+/* 相框：照片外面一圈 8px 的空間，這一圈會被 photo-frames.js 挖空，露出網頁背景 */
+.photo-frame {
+  aspect-ratio: var(--r);
+  padding: 8px;
+  border-radius: 18px;
+}
+
+.photo-frame .project-photo {
+  height: 100%;
+  margin: 0;
+}
+
+.photo-frame .project-photo img {
+  /* 取消正方形，改成填滿相框；比例本來就接近，只會裁掉幾個像素 */
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+
+.photo-frame .project-photo:hover img {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+/* 手機：左邊那組（步道、貓咪、小貓）獨佔第一排，
+   斜張橋和右邊那一疊（坐著的貓 + 林蔭道路）一起擠到第二排 */
+@media (max-width: 600px) {
+  .photo-grid {
+    flex-wrap: wrap;
+  }
+
+  .photo-grid > .photo-col:first-child {
+    flex-basis: 100%;
+  }
+
+  .photo-grid,
+  .photo-row,
+  .photo-col {
+    gap: 10px;
+  }
+
+  .photo-frame {
+    padding: 6px;
+    border-radius: 14px;
+  }
+}
+
+/* 挖洞的卡片：卡片本身透明，白底交給裡面的 .box-bg 畫，程式只在 .box-bg 上挖洞
+   （直接在卡片上挖的話，角落的圓形貼紙也會被遮罩切掉） */
+.box.has-holes {
+  isolation: isolate;
+  background: transparent;
+}
+
+.box-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: white;
+  border-radius: inherit;
+}
+
+/* =========================================
+   照片放大檢視的小窗（由 lightbox.js 產生）
+   ========================================= */
+
+/* 照片上的游標變成放大鏡，提示可以點 */
+.photo-grid img {
+  cursor: zoom-in;
+}
+
+.photo-grid img:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+}
+
+/* 小窗打開時，後面的網頁不能捲動 */
+html:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+.lightbox {
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  background: none;
+  border: none;
+}
+
+/* 小窗後面的半透明暗色背景，稍微模糊 */
+.lightbox::backdrop {
+  background-color: rgba(20, 16, 40, 0.75);
+  backdrop-filter: blur(4px);
+}
+
+.lightbox[open] {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: lightbox-in 0.25s ease;
+}
+
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.lightbox figure {
+  margin: 0;
+  padding: 10px 10px 0;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* 照片保持原始比例，最大不超過畫面的 80% */
+.lightbox img {
+  display: block;
+  max-width: min(80vw, 1000px);
+  max-height: 78vh;
+  border-radius: 12px;
+}
+
+.lightbox figcaption {
+  padding: 10px 4px 12px;
+  font-size: 14px;
+  color: var(--text);
+  text-align: center;
+}
+
+/* 關閉、上一張、下一張按鈕：白色圓形 */
+.lightbox button {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--accent);
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.lightbox button:hover {
+  transform: scale(1.1);
+}
+
+/* 小窗打開時焦點會自動落在關閉鈕上，外框改成主題色，不要預設的黑框 */
+.lightbox button:focus-visible {
+  outline: 3px solid var(--c2);
+  outline-offset: 2px;
+}
+
+.lightbox .lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: 46px;
+  z-index: 1;
+  font-size: 18px;
+}
+
+/* 手機：左右按鈕移到照片下方兩側，照片可以放比較大 */
+@media (max-width: 600px) {
+  .lightbox[open] {
+    /* 固定寬度，不然小窗會把左右按鈕也算進同一排，變得比螢幕還寬 */
+    width: 94vw;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .lightbox figure {
+    order: -1;
+    flex-basis: 100%;
+  }
+
+  .lightbox img {
+    max-width: 88vw;
+    max-height: 70vh;
+    margin: 0 auto;
+  }
+
+  .lightbox .lightbox-close {
+    right: -8px;
+  }
+}
+
+/* 圖片左上角的小標籤 */
+.project-photo figcaption {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  background-color: var(--accent);
+  border-radius: 999px;
+}
+
+.project h3 {
+  margin-bottom: 4px;
+  font-size: 17px;
+}
+
+.project p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 工具：外框膠囊 */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  margin: 0;
+  padding: 4px 12px;
+  font-size: 14px;
+  border: 2px solid var(--c2);
+  border-radius: 999px;
+}
+
+/* 最近在… */
+.now {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.now li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.now span {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+}
+
+/* 目標清單：前面是勾選框 */
+.checklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checklist li::before {
+  content: "☐";
+  margin-right: 8px;
+  color: var(--accent);
+}
+
+.checklist li.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.checklist li.done::before {
+  content: "☑";
+}
+
+/* 座右銘：大大的引號 */
+.quote {
+  padding: 32px 56px;
+  text-align: center;
+}
+
+.quote blockquote {
+  position: relative;
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.quote blockquote::before,
+.quote blockquote::after {
+  position: absolute;
+  font-family: Georgia, serif;
+  font-size: 72px;
+  line-height: 1;
+  color: var(--c2);
+}
+
+.quote blockquote::before {
+  content: "\201C";
+  top: -20px;
+  left: -8px;
+}
+
+.quote blockquote::after {
+  content: "\201D";
+  right: -8px;
+  bottom: -44px;
+}
+
+.quote-by {
+  margin: 12px 0 0;
+  opacity: 0.7;
+}
+
+/* =========================================
+   更多裝飾
+   ========================================= */
+
+/* 白色卡片的標題下面加一道螢光筆畫線 */
+.box:not(.fill) h2 {
+  display: inline-block;
+  padding: 0 4px;
+  background: linear-gradient(transparent 60%, color-mix(in srgb, var(--c1) 60%, transparent) 60%);
+}
+
+/* 卡片角落的圓形 emoji 貼紙：在 HTML 寫 data-sticker="⭐" 就會出現 */
+.box[data-sticker]::after {
+  content: attr(data-sticker);
+  position: absolute;
+  top: -16px;
+  right: 20px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  font-size: 22px;
+  background-color: white;
+  border: 2px dashed var(--c2);
+  border-radius: 50%;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transform: rotate(-10deg);
+}
+
+/* 手機上座右銘的內距縮小 */
+@media (max-width: 600px) {
+  .quote {
+    padding: 28px 36px;
+  }
+}
+
+/* =========================================
+   首頁新增欄位
+   ========================================= */
+
+/* 數字統計：四格大數字 */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  text-align: center;
+}
+
+.stat {
+  padding: 12px 8px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 36px;
+  line-height: 1.2;
+  color: var(--accent);
+}
+
+.stat span {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* 最新動態：左邊日期、右邊內容，中間虛線隔開 */
+.news {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news li {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--c2);
+}
+
+.news li:last-child {
+  border-bottom: none;
+}
+
+.news time {
+  flex-shrink: 0;
+  min-width: 56px;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+/* 精選作品下方的「看更多」連結 */
+.more {
+  margin: 12px 0 0;
+  text-align: right;
+  font-weight: bold;
+}
+
+/* 手機上數字統計改成兩欄 */
+@media (max-width: 600px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================
+   背景星星（由 stars.js 隨機產生，只放在上方深色的部分）
+   ========================================= */
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* 比較大的星星：外面加一圈光暈 */
+.star.big {
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* 流星：一條尾巴漸漸變淡的細線，右邊是發亮的頭 */
+.meteor {
+  position: absolute;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9));
+  opacity: 0;
+  transform-origin: right center;
+  animation: meteor 10s linear infinite;
+}
+
+.meteor::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.9);
+  transform: translateY(-50%);
+}
+
+/* 往右下方劃過，大部分時間是隱藏的（等待下一次出現） */
+@keyframes meteor {
+  0% {
+    opacity: 0;
+    transform: rotate(30deg) translateX(0);
+  }
+  1% {
+    opacity: 1;
+  }
+  8% {
+    opacity: 0;
+    transform: rotate(30deg) translateX(420px);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(30deg) translateX(420px);
+  }
+}
+
+/* 使用者設定「減少動態效果」時就不顯示流星 */
+@media (prefers-reduced-motion: reduce) {
+  .meteor {
+    display: none;
+  }
+}
+
+/* =========================================
+   頁尾上方的風景（由 scenery.js 產生）
+   ========================================= */
+.scenery {
+  margin-top: 24px;
+  line-height: 0;
+}
+
+/* 高度跟著寬度等比例變大（22vw ≈ 寬:高 = 4.5:1），寬螢幕上方的山頂和天空才不會被裁掉
+   手機上至少 180px 高，這時只會裁掉左右兩邊 */
+.scenery svg {
+  display: block;
+  width: 100%;
+  height: max(180px, 22vw);
+}
+
+/* 天空：透明（接網頁底色）→ 混了網頁底色的淡藍 → 地平線附近接近白色的淡藍
+   前兩段混入 --soft（網頁最下面的顏色），每個主題都會從自己的底色慢慢變成藍天 */
+.sky-stop-0 {
+  stop-color: color-mix(in srgb, var(--sky) 30%, var(--soft));
+  stop-opacity: 0;
+}
+
+.sky-stop-1 {
+  stop-color: color-mix(in srgb, var(--sky) 45%, var(--soft));
+  stop-opacity: 0.35;
+}
+
+.sky-stop-2 {
+  stop-color: color-mix(in srgb, var(--sky) 55%, white);
+  stop-opacity: 0.7;
+}
+
+.sky-stop-3 {
+  stop-color: color-mix(in srgb, var(--sky) 35%, white);
+  stop-opacity: 0.95;
+}
+
+/* 遠方的高山：混入天空的藍，越遠越淡（空氣透視）；顏色比天空深，輪廓才清楚 */
+.mountain-far-stop-0 {
+  stop-color: color-mix(in srgb, var(--sky) 30%, #7a8cc0);
+}
+
+.mountain-far-stop-1 {
+  stop-color: color-mix(in srgb, var(--sky) 40%, #dfe7f5);
+}
+
+.mountain-near-stop-0 {
+  stop-color: color-mix(in srgb, var(--sky) 20%, #5c73aa);
+}
+
+.mountain-near-stop-1 {
+  stop-color: color-mix(in srgb, var(--sky) 40%, #d5dff2);
+}
+
+/* 山的稜線描一道淡淡的深色邊，讓輪廓更清楚 */
+.mountain-far,
+.mountain-near {
+  stroke: #4a5a8a;
+  stroke-width: 1;
+  stroke-opacity: 0.3;
+  stroke-linejoin: round;
+}
+
+/* 陰影面 */
+.shade-stop-0 {
+  stop-color: #2f3d6b;
+  stop-opacity: 1;
+}
+
+.shade-stop-1 {
+  stop-color: #2f3d6b;
+  stop-opacity: 0.6;
+}
+
+.shade-stop-2 {
+  stop-color: #2f3d6b;
+  stop-opacity: 0;
+}
+
+.shade-far {
+  fill: url(#shade-gradient);
+  opacity: 0.22;
+}
+
+.shade-near {
+  fill: url(#shade-gradient);
+  opacity: 0.3;
+}
+
+/* 山溝細節線條 */
+.crease-far,
+.crease-near {
+  fill: none;
+  stroke: #33416f;
+  stroke-linecap: round;
+}
+
+.crease-far {
+  stroke-width: 1;
+  opacity: 0.18;
+}
+
+.crease-near {
+  stroke-width: 1.2;
+  opacity: 0.25;
+}
+
+/* 山頂積雪：偏冷的淡藍白，和暖色調的雲分開 */
+.snow {
+  fill: color-mix(in srgb, #eef3ff 85%, var(--sky));
+  opacity: 0.9;
+}
+
+/* 白雲：上面亮白，雲底帶一點主題色（--c1） */
+.cloud circle,
+.cloud rect {
+  fill: url(#cloud-gradient);
+}
+
+.cloud-stop-0 {
+  stop-color: white;
+}
+
+.cloud-stop-1 {
+  stop-color: white;
+}
+
+.cloud-stop-2 {
+  stop-color: color-mix(in srgb, white 55%, var(--c1));
+}
+
+/* 海洋主題的 --c1 是淺藍，雲底會和積雪太像，改用紫色調 */
+[data-theme="ocean"] .cloud-stop-2 {
+  stop-color: color-mix(in srgb, white 60%, var(--c3));
+}
+
+/* 草坡 */
+.grass-stop-0 {
+  stop-color: #b8e070;
+}
+
+.grass-stop-1 {
+  stop-color: #74c35a;
+}
+
+.grass-stop-2 {
+  stop-color: var(--grass);
+}
+
+/* 草葉筆觸 */
+.blade {
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.blade.light {
+  stroke: #c9ec8a;
+  opacity: 0.6;
+}
+
+.blade.dark {
+  stroke: #3f8f3f;
+  opacity: 0.35;
+}
+
+/* 泥土小路 */
+/* 踩實的泥土 */
+.trail-dirt {
+  fill: #b89a6c;
+}
+
+/* 路邊稀疏的小草 */
+.edge-blade {
+  fill: none;
+  stroke: #5e9a45;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+
+/* 小花叢 */
+.flower-bush .leaves {
+  fill: #4f9a45;
+  opacity: 0.75;
+}
+
+.flower-bush circle {
+  opacity: 0.9;
+}
+
+.flower-bush .f1 {
+  fill: var(--c1);
+}
+
+.flower-bush .f2 {
+  fill: white;
+}
+
+.flower-bush .f3 {
+  fill: var(--c3);
+}
+
+.flower-bush .f4 {
+  fill: #ffd166;
+}
+
+/* 風景最下面接到頁尾的那一條 */
+.fade-stop-0 {
+  stop-color: var(--grass);
+  stop-opacity: 0;
+}
+
+.fade-stop-1 {
+  stop-color: var(--grass);
+  stop-opacity: 1;
+}

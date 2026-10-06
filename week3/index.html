@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <!-- 設定文字編碼，避免中文顯示亂碼 -->
+  <meta charset="UTF-8">
+
+  <!-- 讓網頁能適應手機與不同螢幕尺寸 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 設定瀏覽器分頁標題 -->
+  <title>Roy的個人網站</title>
+
+  <!-- 網頁圖示（瀏覽器分頁上的小圖） -->
+  <link rel="icon" type="image/png" href="images/owop.png">
+
+  <!-- 連結外部 CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 切換顏色主題的程式 -->
+  <script src="theme.js"></script>
+
+  <!-- 背景上方隨機產生的星星 -->
+  <script src="stars.js"></script>
+
+  <!-- 頁尾上方的水彩風景：藍天、白雲、高山、草坡、泥土小路、小花叢 -->
+  <script src="scenery.js"></script>
+</head>
+
+<body>
+  <!-- header：網頁的頁首區域 -->
+  <header>
+    <!-- 右上角：切換顏色主題按鈕，左邊加一段提示和彎彎的箭頭指向按鈕 -->
+    <div class="theme-switch">
+      <span class="theme-hint">
+        換個配色看看
+        <svg class="theme-arrow" viewBox="0 0 44 26" aria-hidden="true">
+          <path d="M3 5 C 12 24, 28 24, 39 11" />
+          <path d="M32 9.5 L40 10 L37.5 17.5" />
+        </svg>
+      </span>
+
+      <button class="theme-btn" type="button" title="點一下切換網站的顏色風格">
+        <span class="theme-dot"></span>
+        <span class="theme-name">夢幻</span>
+      </button>
+    </div>
+
+    <!-- h1：網頁最主要的標題 -->
+    <h1>Roy的個人網站</h1>
+
+    <!-- nav：放置網頁導覽連結 -->
+    <nav>
+      <!-- 連結到目前的首頁 -->
+      <a href="index.html" class="active">回首頁</a>
+
+      <!-- 連結到同一個資料夾中的 about.html -->
+      <a href="about.html">關於我</a>
+
+      <!-- 連結到外部網站，target="_blank" 代表在新分頁開啟 -->
+      <a
+        href="https://zh.wikipedia.org/zh-tw/%E4%B9%A0%E8%BF%91%E5%B9%B3"
+        target="_blank"
+        rel="noreferrer"
+      >
+        關於習近平
+      </a>
+
+      <a
+        href="https://maps.app.goo.gl/1JMjVRYTTvXNo24N9"
+        target="_blank"
+        rel="noreferrer"
+      >
+        淡江大學店
+      </a>
+    </nav>
+  </header>
+
+  <!-- main：網頁的主要內容，不同大小的卡片拼在一起 -->
+  <main>
+
+    <!-- section：照片牆區域 -->
+    <section class="box tape span-6" data-sticker="🐾">
+      <h2>喵</h2>
+
+      <!-- 照片牆：用相對路徑讀取 week2 資料夾的圖片 -->
+      <!-- alt：圖片無法顯示時的替代文字 -->
+      <div class="gallery">
+        <img src="../week2/IMG_4857.jpg" alt="圖片一">
+        <img src="../week2/IMG_7399.jpg" alt="圖片二">
+        <img src="../week2/IMG_9430.png" alt="圖片三">
+        <img src="../week2/IMG_9432.jpg" alt="圖片四">
+      </div>
+
+      <!-- p：建立段落 -->
+      <p>
+        大家好，我是淡江大學的資訊管理系大三學生。
+        對。
+      </p>
+
+      <!-- strong：表示重要或需要強調的文字 -->
+      <!-- em：表示語氣上的強調文字 -->
+      <p>
+        我喜歡貓咪
+        <strong>喵</strong>
+        喵
+        <em>喵</em>。
+      </p>
+    </section>
+
+    <!-- 數字統計（TODO：範例數字，之後換成自己的） -->
+    <section class="box fill span-6">
+      <div class="stats">
+        <div class="stat">
+          <strong>3</strong>
+          <span>年 · 淡江資管</span>
+        </div>
+
+        <div class="stat">
+          <strong>9</strong>
+          <span>門 · 這學期的課</span>
+        </div>
+
+        <div class="stat">
+          <strong>146.5+</strong>
+          <span>公里 · 今年騎車里程(ubike)</span>
+        </div>
+
+        <div class="stat">
+          <strong>0</strong>
+          <span>座 · 爬過的山</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 裝飾用分隔線 -->
+    <hr class="divider">
+
+    <!-- section：課程表格區域（左邊、佔兩排高） -->
+    <section class="box tape right span-4 tall">
+      <h2>目前課表每日最晚下課時間</h2>
+
+      <!-- table：建立表格 -->
+      <table>
+        <!-- caption：設定表格標題 -->
+        <caption>你看看</caption>
+
+        <!-- thead：表格的標題區域 -->
+        <thead>
+          <tr>
+            <!-- th：表格標題欄位 -->
+            <th scope="col">星期N</th>
+            <th scope="col">最後一堂課到幾點</th>
+          </tr>
+        </thead>
+
+        <!-- tbody：表格的資料內容區域 -->
+        <tbody>
+          <!-- tr：建立一列表格資料 -->
+          <tr>
+            <!-- td：一般資料欄位 -->
+            <td>Mon</td>
+            <td>18:00</td>
+          </tr>
+
+          <tr>
+            <td>Tue</td>
+            <td>18:00</td>
+          </tr>
+
+          <tr>
+            <td>Wed</td>
+            <td>18:00</td>
+          </tr>
+
+          <tr>
+            <td>Thu</td>
+            <td>18:00</td>
+          </tr>
+
+          <tr>
+            <td>Fri</td>
+            <td>18:00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="note">
+        嗚嗚嗚每天都六點才下課(雖然中間有空堂)
+      </p>
+    </section>
+
+    <!-- section：興趣清單區域（漸層卡片） -->
+    <section class="box fill span-2">
+      <h2>我的興趣</h2>
+
+      <!-- ul：建立無序清單 -->
+      <ul class="pills">
+        <!-- li：清單中的一個項目 -->
+        <li>🚲 單車</li>
+        <li>🏃 運動</li>
+        <li>⛰️ 爬山</li>
+      </ul>
+    </section>
+
+    <!-- section：學習步驟區域（虛線卡片） -->
+    <section class="box outline span-2" data-sticker="✏️">
+      <h2>使用電腦的步驟</h2>
+
+      <!-- ol：建立有順序的清單 -->
+      <ol class="steps">
+        <li>開機</li>
+        <li>使用</li>
+        <li>關機</li>
+      </ol>
+    </section>
+
+    <!-- 最新動態（TODO：範例文字，之後換成自己的） -->
+    <section class="box tape span-4" data-sticker="📢">
+      <h2>最新動態</h2>
+
+      <ul class="news">
+        <li>
+          <time datetime="2026-10-06">10/06</time>
+          <span>個人網站改版完成，加入切換顏色主題的按鈕。</span>
+        </li>
+
+        <li>
+          <time datetime="2026-09-29">09/29</time>
+          <span>完成第二週作業：Git 基礎。</span>
+        </li>
+
+        <li>
+          <time datetime="2026-09-25">09/25</time>
+          <span>中秋節放假。</span>
+        </li>
+
+        <li>
+          <time datetime="2026-09-14">09/14</time>
+          <span>開學。</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 精選作品（TODO：範例文字，之後換成自己的） -->
+    <section class="box span-2">
+      <h2>精選作品</h2>
+
+      <article class="project">
+        <!-- figure：作品圖片，figcaption 放在圖片角落當小標籤 -->
+        <figure class="project-photo">
+          <img src="images/owop.JPG" alt="手繪的藍色 Q 版小企鵝插畫">
+          <figcaption>插畫</figcaption>
+        </figure>
+        <h3>小企鵝 owop</h3>
+        <p>用繪圖軟體畫的 Q 版小企鵝，臉頰紅紅的。</p>
+      </article>
+
+      <p class="more">
+        <a href="about.html">看更多作品 →</a>
+      </p>
+    </section>
+
+    <!-- 裝飾用分隔線 -->
+    <hr class="divider">
+
+    <!-- div：一般區塊容器，本身沒有特殊語意 -->
+    <div class="box span-6">
+      <h2>更多資訊</h2>
+
+      <!-- 連結清單 -->
+      <div class="link-list">
+        <a href="https://www.youtube.com/watch?v=Kw0YZ3c9xR0" target="_blank" rel="noreferrer">
+          <span class="icon">▶</span>
+          查看培宇演講
+        </a>
+
+        <!-- 插入連結到 about.html -->
+        <a href="about.html">
+          <span class="icon">👤</span>
+          查看完整自我介紹
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- footer：網頁的頁尾區域 -->
+  <footer>
+    <p>© 2026 Roy的個人網站</p>
+  </footer>
+</body>
+
+</html>
